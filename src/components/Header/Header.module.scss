@@ -1,0 +1,11 @@
+.header {
+	@apply py-[10px] mb-[30px] lg:mb-[60px] lg:py-[20px] bg-[--white-color] shadow-[--black-color] shadow-[0px_3px_8px_0px] sticky top-0;
+
+	&__nav {
+		@apply flex justify-between items-center;
+	}
+
+	&__buttons {
+		@apply flex items-center justify-center;
+	}
+}

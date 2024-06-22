@@ -1,0 +1,7 @@
+.burger {
+	@apply space-y-2 h-[35px] md:hidden;
+
+	&__item {
+		@apply block h-0.5 w-8 bg-[--black-color];
+	}
+}

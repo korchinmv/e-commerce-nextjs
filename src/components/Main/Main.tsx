@@ -1,7 +1,7 @@
-import { Children } from "@/types/Children";
+import { TChildren } from "@/types/Children";
 import styles from "./Main.module.scss";
 
-const Main = ({ children }: Children) => {
+const Main = ({ children }: TChildren) => {
   return <main className={styles.main}>{children}</main>;
 };
 

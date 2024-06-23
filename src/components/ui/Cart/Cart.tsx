@@ -1,6 +1,7 @@
 "use client";
-import { cartSelector } from "@/redux/features/cart/cartSelector";
+import { toggleStateCart } from "@/redux/features/cart/cartSlice";
 import { useAppSelector } from "@/redux/hooks";
+import { cartSelector } from "@/redux/features/cart/cartSelector";
 import CloseButton from "../CloseButton/CloseButton";
 import styles from "./Cart.module.scss";
 
@@ -9,8 +10,8 @@ const Cart = () => {
 
   return (
     <div className={`${isOpen ? "right-0" : "-right-full"} ${styles.cart}`}>
-      <div></div>
-      {/* <CloseButton /> */}
+      <div>CART</div>
+      <CloseButton action={toggleStateCart} />
     </div>
   );
 };

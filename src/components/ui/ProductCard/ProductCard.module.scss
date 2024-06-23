@@ -1,0 +1,23 @@
+.card {
+	@apply relative overflow-hidden;
+
+	&__buttons {
+		@apply absolute top-6 -right-11 group-hover:right-5 bg-[--accent-color] p-2 flex flex-col items-center justify-center gap-y-2 opacity-0 group-hover:opacity-100 transition-all duration-300;
+	}
+
+	&__box {
+		@apply flex justify-center items-center border border-[--grey-light-color] rounded-md p-6 flex flex-col items-center h-[300px] mb-[10px];
+	}
+
+	&__category {
+		@apply block text-[--grey-color] mb-[5px];
+	}
+
+	&__title {
+		@apply text-[20px] font-medium mb-[10px] line-clamp-2;
+	}
+
+	&__price {
+		@apply text-[20px] mt-auto;
+	}
+}

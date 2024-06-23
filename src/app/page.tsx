@@ -1,15 +1,22 @@
-import Hero from "@/components/Hero/Hero";
+import { fetchData } from "@/utils/fetchData";
 import { Metadata } from "next";
+import HeroBlock from "@/components/HeroBlock/HeroBlock";
+import ProductsBlock from "@/components/ProductsBlock/ProductsBlock";
 
 export const metadata: Metadata = {
   title: "E-commerce | Home page",
   description: "E-commerce app",
 };
 
-export default function Home() {
+const HomePage = async () => {
+  const { success, error } = await fetchData("products");
+
   return (
     <>
-      <Hero />
+      <HeroBlock />
+      <ProductsBlock products={success} />
     </>
   );
-}
+};
+
+export default HomePage;

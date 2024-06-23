@@ -1,10 +1,11 @@
 import Container from "../Container/Container";
+import styles from "./Footer.module.scss";
 
 const Footer = () => {
   return (
-    <footer className='mt-auto'>
+    <footer className={styles.footer}>
       <Container>
-        <p className='text-center text-[18px] md:text-[22px] py-[10px] md:py-[20px]'>
+        <p className={styles.footer__text}>
           Web-developer Korchin M.V. 2024 year
         </p>
       </Container>

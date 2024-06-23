@@ -1,4 +1,5 @@
 "use client";
+import { toggleStateMobileMenu } from "@/redux/features/mobileMenu/mobileMenuSlice";
 import { mobileMenuSelector } from "@/redux/features/mobileMenu/mobileMenuSelector";
 import { useAppSelector } from "@/redux/hooks";
 import MobileMenuLink from "./MobileMenuLink/MobileMenuLink";
@@ -18,7 +19,7 @@ const MobileMenu = () => {
         <MobileMenuLink name='Home' href='/' />
         <MobileMenuLink name='Favorites' href='/favorites' />
       </ul>
-      <CloseButton />
+      <CloseButton action={toggleStateMobileMenu} />
     </div>
   );
 };

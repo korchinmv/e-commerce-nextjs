@@ -1,5 +1,5 @@
 .logo {
-	@apply md:w-[56px] w-[46px];
+	@apply md:w-[56px] w-[46px] mr-[15px] shrink-0;
 
 	img:hover {
 		fill: #4f30b4;

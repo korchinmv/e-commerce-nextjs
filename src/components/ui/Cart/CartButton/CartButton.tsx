@@ -2,7 +2,7 @@
 import { useAppDispatch } from "@/redux/hooks";
 import { ShoppingCart } from "lucide-react";
 import { useState } from "react";
-import { toggleState } from "@/redux/features/cart/cartSlice";
+import { toggleStateCart } from "@/redux/features/cart/cartSlice";
 import styles from "./CartButton.module.scss";
 
 interface ICartButtonProps {
@@ -18,7 +18,7 @@ const CartButton = ({ label, heartSize }: ICartButtonProps) => {
     <button
       className={`animation ${countLikes ? "active" : ""} ${styles.buttonCart}`}
       aria-label={label}
-      onClick={() => dispatch(toggleState())}
+      onClick={() => dispatch(toggleStateCart())}
     >
       <ShoppingCart size={heartSize} />
       {countLikes ? (

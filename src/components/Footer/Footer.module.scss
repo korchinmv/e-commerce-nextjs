@@ -1,0 +1,7 @@
+.footer {
+	@apply mt-auto shadow-[--black-color] shadow-[0px_3px_6px_1px];
+
+	&__text {
+		@apply text-center text-[18px] md:text-[22px] py-[10px] md:py-[20px];
+	}
+}

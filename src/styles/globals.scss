@@ -4,16 +4,18 @@
 
 :root {
 	--accent-color: #4f30b4;
-	--white-color: #fff;
 	--black-color: #0000008b;
+	--grey-color: #ccc;
+	--grey-light-color: #e4e4e4;
 	--red-color: #de3333;
+	--white-color: #fff;
 }
 
 body {
 	font-size: 18px;
-	overflow: hidden;
 	display: flex;
 	flex-direction: column;
+	overflow-x: hidden;
 	height: 100vh;
 }
 

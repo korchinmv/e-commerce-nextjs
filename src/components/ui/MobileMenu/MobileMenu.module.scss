@@ -1,5 +1,5 @@
 .menu {
-	@apply absolute top-0 left-0 bg-[--accent-color] w-[100%] h-[100vh] min-h-[250px] pt-[100px] overflow-hidden origin-left duration-500;
+	@apply absolute top-0 left-0 bg-[--accent-color] w-[100%] h-[100vh] min-h-[250px] pt-[100px] overflow-hidden origin-left duration-500 z-40;
 
 	&__button {
 		@apply flex flex-col items-center;

@@ -6,12 +6,12 @@ export const cartReducer = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    toggleState: (state) => {
+    toggleStateCart: (state) => {
       return (state = !state);
     },
   },
 });
 
-export const { toggleState } = cartReducer.actions;
+export const { toggleStateCart } = cartReducer.actions;
 
 export default cartReducer.reducer;

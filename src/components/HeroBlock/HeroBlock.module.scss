@@ -1,0 +1,7 @@
+.hero {
+	@apply md:mb-[50px] mb-[25px];
+
+	&__bg {
+		@apply bg-center aspect-video bg-center bg-cover bg-no-repeat rounded-xl text-[--white-color] flex flex-col justify-center md:pl-[100px] pl-[30px] py-8;
+	}
+}

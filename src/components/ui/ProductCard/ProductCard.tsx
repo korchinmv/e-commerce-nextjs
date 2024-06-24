@@ -18,7 +18,7 @@ const ProductCard = ({ product }: IProductCardProps) => {
           <Plus color='#4f30b4' />
         </button>
 
-        <Link href={`/${product.id}`}>
+        <Link href={`/product/${product.id}`}>
           <Eye color='#fff' />
         </Link>
       </div>
@@ -29,6 +29,7 @@ const ProductCard = ({ product }: IProductCardProps) => {
           width={500}
           height={500}
           alt={product.title}
+          priority
         />
       </div>
       <span className={styles.card__category}>{product.category}</span>

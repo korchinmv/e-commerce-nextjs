@@ -4,7 +4,7 @@ import { getWindowWidth } from "@/utils/getWindowWidth";
 import { TProduct } from "@/types/Product";
 import ProductsList from "../ProductsList/ProductsList";
 import Container from "../Container/Container";
-import MoreButton from "../ui/MoreButton/MoreButton";
+import Button from "../ui/Button/Button";
 import Subtitle from "../typography/Subtitle/Subtitle";
 import styles from "./ProductsBlock.module.scss";
 import {
@@ -61,7 +61,11 @@ const ProductsBlock = ({ products }: IProductsList) => {
           <ProductsList products={products} showProducts={showProducts} />
 
           {products.length > showProducts ? (
-            <MoreButton showMore={showMore} text='Show more..' />
+            <Button
+              handleClick={showMore}
+              text='Show more..'
+              label='Add more products'
+            />
           ) : null}
         </div>
       </Container>

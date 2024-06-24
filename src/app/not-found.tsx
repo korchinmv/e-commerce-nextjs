@@ -11,7 +11,6 @@ const NotFoundPage = () => {
   return (
     <div className='flex flex-col items-center justify-center pt-[100px]'>
       <Image
-        className=''
         src={notFoundImage}
         width={500}
         height={500}

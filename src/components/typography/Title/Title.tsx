@@ -2,7 +2,7 @@ import styles from "./Title.module.scss";
 
 interface ITitleProps {
   text: string;
-  css: string;
+  css?: string;
 }
 
 const Title = ({ text, css }: ITitleProps) => {

@@ -5,11 +5,7 @@ export const metadata: Metadata = {
   description: "E-commerece error page",
 };
 
-const Custom404 = () => {
-  return (
-    <h1 className='flex justify-center items-center h-screen'>
-      404 - Page Not Found
-    </h1>
-  );
+const ErrorPage = () => {
+  return <h1>ERROR</h1>;
 };
-export default Custom404;
+export default ErrorPage;

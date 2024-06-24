@@ -1,0 +1,7 @@
+.products {
+	@apply mb-[50px];
+
+	&__wrapper {
+		@apply flex flex-col items-center;
+	}
+}

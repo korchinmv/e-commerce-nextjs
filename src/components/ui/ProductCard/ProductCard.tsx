@@ -11,12 +11,15 @@ interface IProductCardProps {
 const ProductCard = ({ product }: IProductCardProps) => {
   return (
     <li className={`${styles.card} group flex flex-col`}>
-      <div className={styles.card__buttons}>
-        <button>
-          <Plus />
+      <div
+        className={`${styles.card__buttons} group-hover:right-5 group-hover:opacity-100`}
+      >
+        <button className='bg-[--white-color]'>
+          <Plus color='#4f30b4' />
         </button>
+
         <Link href={`/${product.id}`}>
-          <Eye />
+          <Eye color='#fff' />
         </Link>
       </div>
       <div className={styles.card__box}>

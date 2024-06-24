@@ -1,13 +1,23 @@
 import { Metadata } from "next";
+import notFoundImage from "@/../public/not-found.gif";
+import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Not Found",
-  description: "Not Found page",
+  title: "E-commerce | Not Found",
+  description: "E-commerce | Not Found page",
 };
 
 const NotFoundPage = () => {
   return (
-    <h1 className='flex justify-center items-center h-screen'>Not Found</h1>
+    <div className='flex flex-col items-center justify-center pt-[100px]'>
+      <Image
+        className=''
+        src={notFoundImage}
+        width={500}
+        height={500}
+        alt='Not found picture'
+      />
+    </div>
   );
 };
 export default NotFoundPage;

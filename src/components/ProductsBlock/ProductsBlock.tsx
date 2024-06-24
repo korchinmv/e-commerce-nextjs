@@ -1,9 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
+import { getWindowWidth } from "@/utils/getWindowWidth";
 import { TProduct } from "@/types/Product";
 import ProductsList from "../ProductsList/ProductsList";
 import Container from "../Container/Container";
 import MoreButton from "../ui/MoreButton/MoreButton";
+import Subtitle from "../typography/Subtitle/Subtitle";
 import styles from "./ProductsBlock.module.scss";
 import {
   PRODUCTS_LIST_1280,
@@ -11,7 +13,6 @@ import {
   SHOW_MORE_480,
   SHOW_MORE_768,
 } from "@/utils/constants";
-import Subtitle from "../typography/Subtitle/Subtitle";
 
 export interface IProductsList {
   products: TProduct[];
@@ -20,7 +21,7 @@ export interface IProductsList {
 
 const ProductsBlock = ({ products }: IProductsList) => {
   const [showProducts, setShowProducts] = useState<number>(0);
-  const [displayWidth, setDisplayWidth] = useState(window.innerWidth);
+  const [displayWidth, setDisplayWidth] = useState(getWindowWidth());
 
   const showMore = () => {
     if (displayWidth >= 768) {

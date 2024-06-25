@@ -1,18 +1,16 @@
-import cartReducer from "./features/cart/cartSlice";
 import { configureStore } from "@reduxjs/toolkit";
-import { api } from "./api/api";
+import favoritesProductsReducer from "./features/favoritesProducts/favoritesProductsSlice";
 import mobileMenuReducer from "@/redux/features/mobileMenu/mobileMenuSlice";
+import cartReducer from "./features/cart/cartSlice";
 
 export const store = () => {
   return configureStore({
     reducer: {
+      favoritesProductsReducer,
       mobileMenuReducer,
       cartReducer,
-      [api.reducerPath]: api.reducer,
     },
     devTools: process.env.NODE_ENV !== "production",
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(api.middleware),
   });
 };
 

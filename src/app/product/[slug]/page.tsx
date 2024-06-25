@@ -1,12 +1,13 @@
 import { fetchData } from "@/utils/fetchData";
 import { Metadata } from "next";
 import Container from "@/components/Container/Container";
+import ButtonLike from "@/components/ui/ButtonLike/ButtonLike";
+import Paragraph from "@/components/typography/Paragraph/Paragraph";
 import Rating from "@mui/material/Rating";
+import Button from "@/components/ui/Button/Button";
 import Error from "@/components/Error/Error";
 import Image from "next/image";
-import Paragraph from "@/components/typography/Paragraph/Paragraph";
 import Title from "@/components/typography/Title/Title";
-import Button from "@/components/ui/Button/Button";
 
 interface IProductPageProps {
   params: { slug: string };
@@ -32,7 +33,6 @@ export async function generateMetadata({
 
 const ProductPage = async ({ params: { slug } }: IProductPageProps) => {
   const { success: product, error } = await fetchData(`products/${slug}`);
-  console.log(product);
 
   if (error) {
     return (
@@ -72,9 +72,10 @@ const ProductPage = async ({ params: { slug } }: IProductPageProps) => {
 
             <Paragraph text={product.description} css='mb-[30px]' />
 
-            <div className='flex items-center'>
-              <span className='text-[26px] font-bold mr-[40px]'>{`$ ${product.price}`}</span>
+            <div className='flex items-center gap-x-[15px] md:gap-x-[30px]'>
+              <span className='text-[26px] font-bold'>{`$ ${product.price}`}</span>
               <Button text='Add to cart' label='Add to cart button' />
+              <ButtonLike product={product} css='w-[50px] h-[50px] ' />
             </div>
           </div>
         </div>

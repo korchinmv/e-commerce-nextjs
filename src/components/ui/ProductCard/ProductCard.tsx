@@ -1,5 +1,8 @@
+import { favoritesProductsSelector } from "@/redux/features/favoritesProducts/favoritesProductsSelector";
+import { useAppSelector } from "@/redux/hooks";
 import { Eye, Plus } from "lucide-react";
 import { TProduct } from "@/types/Product";
+import ButtonLike from "../ButtonLike/ButtonLike";
 import styles from "./ProductCard.module.scss";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,8 +12,18 @@ interface IProductCardProps {
 }
 
 const ProductCard = ({ product }: IProductCardProps) => {
+  const { favoritesListProduct } = useAppSelector(favoritesProductsSelector);
+
   return (
     <li className={`${styles.card} group flex flex-col`}>
+      {favoritesListProduct.some((p) => p.id === product.id) ? (
+        <ButtonLike
+          product={product}
+          css='
+					absolute top-2 left-2 w-[35px] h-[35px] p-[8px]'
+        />
+      ) : null}
+
       <div
         className={`${styles.card__buttons} group-hover:right-5 group-hover:opacity-100`}
       >

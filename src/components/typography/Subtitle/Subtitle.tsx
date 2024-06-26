@@ -1,7 +1,7 @@
 import styles from "./Subtitle.module.scss";
 
 interface ISubtitleProps {
-  text: string;
+  text?: string;
   css?: string;
 }
 

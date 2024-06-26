@@ -1,11 +1,13 @@
 "use client";
+import { favoritesProductsSelector } from "@/redux/features/favoritesProducts/favoritesProductsSelector";
 import { useEffect, useState } from "react";
+import { useAppSelector } from "@/redux/hooks";
 import { getWindowWidth } from "@/utils/getWindowWidth";
 import { TProduct } from "@/types/Product";
 import ProductsList from "../ProductsList/ProductsList";
 import Container from "../Container/Container";
-import Button from "../ui/Button/Button";
 import Subtitle from "../typography/Subtitle/Subtitle";
+import Button from "../ui/Button/Button";
 import styles from "./ProductsBlock.module.scss";
 import {
   PRODUCTS_LIST_1280,
@@ -13,15 +15,22 @@ import {
   SHOW_MORE_480,
   SHOW_MORE_768,
 } from "@/utils/constants";
+import { useParams, usePathname } from "next/navigation";
+import Paragraph from "../typography/Paragraph/Paragraph";
 
 export interface IProductsList {
-  products: TProduct[];
+  products?: TProduct[];
   showProducts?: number;
+  title?: string;
 }
 
-const ProductsBlock = ({ products }: IProductsList) => {
+const ProductsBlock = ({ products, title }: IProductsList) => {
   const [showProducts, setShowProducts] = useState<number>(0);
   const [displayWidth, setDisplayWidth] = useState(getWindowWidth());
+  const { favoritesListProduct, totalFavoritesQuantity } = useAppSelector(
+    favoritesProductsSelector
+  );
+  const pathname = usePathname();
 
   const showMore = () => {
     if (displayWidth >= 768) {
@@ -57,10 +66,22 @@ const ProductsBlock = ({ products }: IProductsList) => {
     <section className={styles.products}>
       <Container>
         <div className={styles.products__wrapper}>
-          <Subtitle text='The Best Products' css='mb-[25px] md:mb-[50px]' />
-          <ProductsList products={products} showProducts={showProducts} />
+          <Subtitle text={title} css='mb-[25px] md:mb-[50px] text-center' />
+          {totalFavoritesQuantity > 0 && (
+            <Paragraph
+              text={`The total number of selected products is ${totalFavoritesQuantity}`}
+              css='mb-[25px] md:mb-[55px] text-center'
+            />
+          )}
 
-          {products.length > showProducts ? (
+          <ProductsList
+            products={
+              pathname === "/favorites" ? favoritesListProduct : products
+            }
+            showProducts={showProducts}
+          />
+
+          {products?.length || favoritesListProduct.length > showProducts ? (
             <Button
               handleClick={showMore}
               text='Show more..'

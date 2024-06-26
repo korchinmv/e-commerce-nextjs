@@ -7,7 +7,7 @@ import styles from "./ProductsList.module.scss";
 const ProductsList = ({ products, showProducts }: IProductsList) => {
   return (
     <>
-      {products!.length !== 0 ? (
+      {products !== undefined ? (
         <ul className={styles.productsList}>
           {products!.map((product: TProduct, index: number) => {
             if (showProducts) {

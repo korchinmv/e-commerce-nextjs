@@ -81,14 +81,23 @@ const ProductsBlock = ({ products, title }: IProductsList) => {
             showProducts={showProducts}
           />
 
-          {(products && products?.length) ||
-          favoritesListProduct.length > showProducts ? (
+          {pathname === "/favorites" &&
+            favoritesListProduct !== undefined &&
+            favoritesListProduct.length > showProducts && (
+              <Button
+                handleClick={showMore}
+                text='Show more..'
+                label='Add more products'
+              />
+            )}
+
+          {products !== undefined && products.length > showProducts && (
             <Button
               handleClick={showMore}
               text='Show more..'
               label='Add more products'
             />
-          ) : null}
+          )}
         </div>
       </Container>
     </section>

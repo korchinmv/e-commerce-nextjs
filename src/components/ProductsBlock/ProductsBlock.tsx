@@ -15,7 +15,7 @@ import {
   SHOW_MORE_480,
   SHOW_MORE_768,
 } from "@/utils/constants";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Paragraph from "../typography/Paragraph/Paragraph";
 
 export interface IProductsList {
@@ -81,7 +81,8 @@ const ProductsBlock = ({ products, title }: IProductsList) => {
             showProducts={showProducts}
           />
 
-          {products?.length || favoritesListProduct.length > showProducts ? (
+          {(products && products?.length) ||
+          favoritesListProduct.length > showProducts ? (
             <Button
               handleClick={showMore}
               text='Show more..'

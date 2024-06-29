@@ -1,13 +1,17 @@
 "use client";
 import { favoritesProductsSelector } from "@/redux/features/favoritesProducts/favoritesProductsSelector";
+import { filterProductsSelector } from "@/redux/features/filterProducts/filterProductsSelector";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "@/redux/hooks";
 import { getWindowWidth } from "@/utils/getWindowWidth";
+import { usePathname } from "next/navigation";
 import { TProduct } from "@/types/Product";
 import ProductsList from "../ProductsList/ProductsList";
+import Paragraph from "../typography/Paragraph/Paragraph";
 import Container from "../Container/Container";
 import Subtitle from "../typography/Subtitle/Subtitle";
 import Button from "../ui/Button/Button";
+import Filter from "../ui/Filter/Filter";
 import styles from "./ProductsBlock.module.scss";
 import {
   PRODUCTS_LIST_1280,
@@ -15,22 +19,29 @@ import {
   SHOW_MORE_480,
   SHOW_MORE_768,
 } from "@/utils/constants";
-import { usePathname } from "next/navigation";
-import Paragraph from "../typography/Paragraph/Paragraph";
+import { useDispatch } from "react-redux";
+import { changeFiltredProducts } from "@/redux/features/filterProducts/filterProductsSlice";
 
 export interface IProductsList {
   products?: TProduct[];
   showProducts?: number;
   title?: string;
+  categories?: string[];
 }
 
-const ProductsBlock = ({ products, title }: IProductsList) => {
+const ProductsBlock = ({ products, title, categories }: IProductsList) => {
   const [showProducts, setShowProducts] = useState<number>(0);
   const [displayWidth, setDisplayWidth] = useState(getWindowWidth());
   const { favoritesListProduct, totalFavoritesQuantity } = useAppSelector(
     favoritesProductsSelector
   );
+  const { filtredProduct } = useAppSelector(filterProductsSelector);
   const pathname = usePathname();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(changeFiltredProducts(products !== undefined ? products : []));
+  }, []);
 
   const showMore = () => {
     if (displayWidth >= 768) {
@@ -67,16 +78,28 @@ const ProductsBlock = ({ products, title }: IProductsList) => {
       <Container>
         <div className={styles.products__wrapper}>
           <Subtitle text={title} css='mb-[25px] md:mb-[50px] text-center' />
-          {totalFavoritesQuantity > 0 && (
+
+          {pathname === "/favorites" && (
             <Paragraph
-              text={`The total number of selected products is ${totalFavoritesQuantity}`}
+              text={
+                totalFavoritesQuantity === 0
+                  ? "There are no products in the list"
+                  : `The total number of selected products is ${totalFavoritesQuantity}`
+              }
               css='mb-[25px] md:mb-[55px] text-center'
             />
+          )}
+          {pathname === "/" && (
+            <Filter categories={categories} css='mb-[25px] md:mb-[40px]' />
           )}
 
           <ProductsList
             products={
-              pathname === "/favorites" ? favoritesListProduct : products
+              pathname === "/favorites"
+                ? favoritesListProduct
+                : filtredProduct && filtredProduct.length !== 0
+                ? filtredProduct
+                : products
             }
             showProducts={showProducts}
           />
@@ -91,7 +114,7 @@ const ProductsBlock = ({ products, title }: IProductsList) => {
               />
             )}
 
-          {products !== undefined && products.length > showProducts && (
+          {filtredProduct && filtredProduct.length > showProducts && (
             <Button
               handleClick={showMore}
               text='Show more..'

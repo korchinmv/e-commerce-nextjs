@@ -11,11 +11,14 @@ export const metadata: Metadata = {
 };
 
 const HomePage = async () => {
-  const { success, error } = await fetchData("products");
+  const { success: products, error: errorProducts } = await fetchData(
+    "products"
+  );
+  const { success: categories } = await fetchData("products/categories");
 
   return (
     <>
-      {error ? (
+      {errorProducts ? (
         <Container>
           <Error
             text='Error. Data not found.. =('
@@ -25,7 +28,12 @@ const HomePage = async () => {
       ) : (
         <>
           <HeroBlock />
-          <ProductsBlock products={success} title='The Best Products' />
+
+          <ProductsBlock
+            products={products}
+            categories={categories}
+            title='The Best Products'
+          />
         </>
       )}
     </>

@@ -1,0 +1,7 @@
+.filter {
+	@apply flex justify-center items-center gap-x-5 flex-wrap gap-y-3;
+
+	&__button {
+		@apply border border-[--grey-color] text-[16px] md:text-[18px] rounded-md py-1 px-3 md:py-2 md:px-5 hover:bg-[--accent-color] hover:text-[--white-color] transition-colors;
+	}
+}

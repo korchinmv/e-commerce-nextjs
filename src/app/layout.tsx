@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { Rubik } from "next/font/google";
 import "@/styles/globals.scss";
 import StoreProvider from "./StoreProvider";
@@ -8,6 +9,11 @@ import Main from "@/components/Main/Main";
 import Cart from "@/components/ui/Cart/Cart";
 
 const font = Rubik({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "E-commerce Shoping App",
+  description: "E-commerce app",
+};
 
 export default function RootLayout({
   children,

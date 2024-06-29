@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import favoritesProductsReducer from "./features/favoritesProducts/favoritesProductsSlice";
+import filterProductsReducer from "./features/filterProducts/filterProductsSlice";
 import mobileMenuReducer from "@/redux/features/mobileMenu/mobileMenuSlice";
 import cartReducer from "./features/cart/cartSlice";
 
@@ -9,6 +10,7 @@ export const store = () => {
       favoritesProductsReducer,
       mobileMenuReducer,
       cartReducer,
+      filterProductsReducer,
     },
     devTools: process.env.NODE_ENV !== "production",
   });

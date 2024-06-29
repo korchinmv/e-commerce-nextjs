@@ -1,7 +1,7 @@
 "use client";
 import { favoritesProductsSelector } from "@/redux/features/favoritesProducts/favoritesProductsSelector";
 import { filterProductsSelector } from "@/redux/features/filterProducts/filterProductsSelector";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useAppSelector } from "@/redux/hooks";
 import { getWindowWidth } from "@/utils/getWindowWidth";
 import { usePathname } from "next/navigation";
@@ -93,16 +93,18 @@ const ProductsBlock = ({ products, title, categories }: IProductsList) => {
             <Filter categories={categories} css='mb-[25px] md:mb-[40px]' />
           )}
 
-          <ProductsList
-            products={
-              pathname === "/favorites"
-                ? favoritesListProduct
-                : filtredProduct && filtredProduct.length !== 0
-                ? filtredProduct
-                : products
-            }
-            showProducts={showProducts}
-          />
+          <Suspense>
+            <ProductsList
+              products={
+                pathname === "/favorites"
+                  ? favoritesListProduct
+                  : filtredProduct && filtredProduct.length !== 0
+                  ? filtredProduct
+                  : products
+              }
+              showProducts={showProducts}
+            />
+          </Suspense>
 
           {pathname === "/favorites" &&
             favoritesListProduct !== undefined &&

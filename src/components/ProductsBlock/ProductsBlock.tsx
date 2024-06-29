@@ -90,7 +90,9 @@ const ProductsBlock = ({ products, title, categories }: IProductsList) => {
             />
           )}
           {pathname === "/" && (
-            <Filter categories={categories} css='mb-[25px] md:mb-[40px]' />
+            <Suspense>
+              <Filter categories={categories} css='mb-[25px] md:mb-[40px]' />
+            </Suspense>
           )}
 
           <Suspense>

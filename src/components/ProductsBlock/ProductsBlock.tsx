@@ -32,15 +32,20 @@ export interface IProductsList {
 const ProductsBlock = ({ products, title, categories }: IProductsList) => {
   const [showProducts, setShowProducts] = useState<number>(0);
   const [displayWidth, setDisplayWidth] = useState(getWindowWidth());
+  const { filtredProduct } = useAppSelector(filterProductsSelector);
   const { favoritesListProduct, totalFavoritesQuantity } = useAppSelector(
     favoritesProductsSelector
   );
-  const { filtredProduct } = useAppSelector(filterProductsSelector);
+  const [mounted, setMounted] = useState<boolean>(false);
   const pathname = usePathname();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(changeFiltredProducts(products !== undefined ? products : []));
+  }, []);
+
+  useEffect(() => {
+    setMounted(true);
   }, []);
 
   const showMore = () => {
@@ -74,60 +79,63 @@ const ProductsBlock = ({ products, title, categories }: IProductsList) => {
   });
 
   return (
-    <section className={styles.products}>
-      <Container>
-        <div className={styles.products__wrapper}>
-          <Subtitle text={title} css='mb-[25px] md:mb-[50px] text-center' />
+    mounted && (
+      <section className={styles.products}>
+        <Container>
+          <div className={styles.products__wrapper}>
+            <Subtitle text={title} css='mb-[25px] md:mb-[50px] text-center' />
 
-          {pathname === "/favorites" && (
-            <Paragraph
-              text={
-                totalFavoritesQuantity === 0
-                  ? "There are no products in the list"
-                  : `The total number of selected products is ${totalFavoritesQuantity}`
-              }
-              css='mb-[25px] md:mb-[55px] text-center'
-            />
-          )}
-          {pathname === "/" && (
+            {pathname === "/favorites" && (
+              <Paragraph
+                text={
+                  totalFavoritesQuantity === 0
+                    ? "There are no products in the list"
+                    : `The total number of selected products is ${totalFavoritesQuantity}`
+                }
+                css='mb-[25px] md:mb-[55px] text-center'
+              />
+            )}
+
+            {pathname === "/" && (
+              <Suspense>
+                <Filter categories={categories} css='mb-[25px] md:mb-[40px]' />
+              </Suspense>
+            )}
+
             <Suspense>
-              <Filter categories={categories} css='mb-[25px] md:mb-[40px]' />
+              <ProductsList
+                products={
+                  pathname === "/favorites"
+                    ? favoritesListProduct
+                    : filtredProduct && filtredProduct.length !== 0
+                    ? filtredProduct
+                    : products
+                }
+                showProducts={showProducts}
+              />
             </Suspense>
-          )}
 
-          <Suspense>
-            <ProductsList
-              products={
-                pathname === "/favorites"
-                  ? favoritesListProduct
-                  : filtredProduct && filtredProduct.length !== 0
-                  ? filtredProduct
-                  : products
-              }
-              showProducts={showProducts}
-            />
-          </Suspense>
+            {pathname === "/favorites" &&
+              favoritesListProduct !== undefined &&
+              favoritesListProduct.length > showProducts && (
+                <Button
+                  handleClick={showMore}
+                  text='Show more..'
+                  label='Add more products'
+                />
+              )}
 
-          {pathname === "/favorites" &&
-            favoritesListProduct !== undefined &&
-            favoritesListProduct.length > showProducts && (
+            {filtredProduct && filtredProduct.length > showProducts ? (
               <Button
                 handleClick={showMore}
                 text='Show more..'
                 label='Add more products'
               />
-            )}
-
-          {filtredProduct && filtredProduct.length > showProducts && (
-            <Button
-              handleClick={showMore}
-              text='Show more..'
-              label='Add more products'
-            />
-          )}
-        </div>
-      </Container>
-    </section>
+            ) : null}
+          </div>
+        </Container>
+      </section>
+    )
   );
 };
 

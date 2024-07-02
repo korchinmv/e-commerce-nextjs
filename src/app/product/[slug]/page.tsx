@@ -4,10 +4,10 @@ import Container from "@/components/Container/Container";
 import ButtonLike from "@/components/ui/ButtonLike/ButtonLike";
 import Paragraph from "@/components/typography/Paragraph/Paragraph";
 import Rating from "@mui/material/Rating";
-import Button from "@/components/ui/Button/Button";
 import Error from "@/components/Error/Error";
 import Image from "next/image";
 import Title from "@/components/typography/Title/Title";
+import ButtonAddToCart from "@/components/ui/ButtonAddToCart/ButtonAddToCart";
 
 interface IProductPageProps {
   params: { slug: string };
@@ -74,7 +74,7 @@ const ProductPage = async ({ params: { slug } }: IProductPageProps) => {
 
             <div className='flex items-center gap-x-[15px] md:gap-x-[30px]'>
               <span className='text-[26px] font-bold'>{`$ ${product.price}`}</span>
-              <Button text='Add to cart' label='Add to cart button' />
+              <ButtonAddToCart product={product} />
               <ButtonLike product={product} css='w-[50px] h-[50px] ' />
             </div>
           </div>

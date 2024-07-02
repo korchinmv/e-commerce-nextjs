@@ -7,13 +7,17 @@ interface ICloseButtonProps {
   action: ActionCreatorWithoutPayload<
     "menu/toggleStateMobileMenu" | "cart/toggleStateCart"
   >;
+  css?: string;
 }
 
-const CloseButton = ({ action }: ICloseButtonProps) => {
+const CloseButton = ({ action, css }: ICloseButtonProps) => {
   const dispatch = useAppDispatch();
 
   return (
-    <button className={styles.close} onClick={() => dispatch(action())}>
+    <button
+      className={`${styles.close} ${css}`}
+      onClick={() => dispatch(action())}
+    >
       X
     </button>
   );

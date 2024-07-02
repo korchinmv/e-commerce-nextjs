@@ -1,0 +1,5 @@
+.cartItem {
+	&__image {
+		@apply w-[100px] h-[100px] object-contain;
+	}
+}

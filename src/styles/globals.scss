@@ -36,6 +36,11 @@ body {
 	color: var(--red-color);
 }
 
+.cart-active {
+	animation: like 0.5s 1;
+	color: var(--accent-color);
+}
+
 @layer utilities {
 	.animation {
 		outline: transparent;

@@ -1,6 +1,8 @@
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { favoritesProductsSelector } from "@/redux/features/favoritesProducts/favoritesProductsSelector";
-import { useAppSelector } from "@/redux/hooks";
-import { Eye, Plus } from "lucide-react";
+import { addProductInCart } from "@/redux/features/cart/cartSlice";
+import { Check, Eye, Plus } from "lucide-react";
+import { cartSelector } from "@/redux/features/cart/cartSelector";
 import { TProduct } from "@/types/Product";
 import ButtonLike from "../ButtonLike/ButtonLike";
 import styles from "./ProductCard.module.scss";
@@ -13,6 +15,12 @@ interface IProductCardProps {
 
 const ProductCard = ({ product }: IProductCardProps) => {
   const { favoritesListProduct } = useAppSelector(favoritesProductsSelector);
+  const { cartProducts } = useAppSelector(cartSelector);
+  const dispatch = useAppDispatch();
+
+  const handleAddBtnClick = (product: TProduct): any => {
+    dispatch(addProductInCart(product));
+  };
 
   return (
     <li className={`${styles.card} group flex flex-col`}>
@@ -27,8 +35,18 @@ const ProductCard = ({ product }: IProductCardProps) => {
       <div
         className={`${styles.card__buttons} group-hover:right-5 group-hover:opacity-100`}
       >
-        <button className='bg-[--white-color]'>
-          <Plus color='#4f30b4' />
+        <button
+          className='bg-[--white-color]'
+          onClick={() => handleAddBtnClick(product)}
+          disabled={
+            cartProducts.some((p) => p.id === product.id) ? true : false
+          }
+        >
+          {cartProducts.some((p) => p.id === product.id) ? (
+            <Check color='#4f30b4' />
+          ) : (
+            <Plus color='#4f30b4' />
+          )}
         </button>
 
         <Link href={`/product/${product.id}`}>

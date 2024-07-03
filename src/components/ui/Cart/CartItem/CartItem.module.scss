@@ -1,5 +1,35 @@
 .cartItem {
+	@apply relative py-3 mb-3 border-b-2 flex;
+
+	&__deleteBtn {
+		@apply hover:opacity-35;
+	}
+
+	&__info {
+		@apply w-full flex flex-col justify-between;
+	}
+
+	&__topWrapper {
+		@apply flex justify-between items-center w-full mb-[10px];
+	}
+
+	&__bottomWrapper {
+		@apply flex items-center gap-3 sm:gap-6;
+	}
+
+	&__title {
+		@apply text-[16px] md:text-[18px] mr-[10px];
+	}
+
 	&__image {
-		@apply w-[100px] h-[100px] object-contain;
+		@apply w-[100px] h-[100px] object-contain mr-3;
+	}
+
+	&__price {
+		@apply text-[--grey-color] text-[14px] sm:text-[18px];
+	}
+
+	&__totalPrice {
+		@apply text-[14px] sm:text-[18px];
 	}
 }

@@ -1,5 +1,5 @@
-import { getLocalStorage } from "@/utils/getLocalStorage";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { getLocalStorage } from "@/utils/getLocalStorage";
 import { TProduct } from "@/types/Product";
 
 const cartProducts =
@@ -33,6 +33,18 @@ export const cartReducer = createSlice({
       state.cartProducts.push(action.payload);
       setItemFunc(state.cartProducts);
     },
+
+    deleteProductFromCart: (state, action: PayloadAction<number>) => {
+      state.cartProducts = state.cartProducts.filter((product) => {
+        return product.id !== action.payload;
+      });
+
+      setItemFunc(state.cartProducts);
+    },
+    deleteAllProductsFromCart: (state) => {
+      state.cartProducts = [];
+      setItemFunc(state.cartProducts);
+    },
     toggleProduct: (state, action: PayloadAction<TProduct>) => {
       if (state.cartProducts.length === 0) {
         state.cartProducts.push(action.payload as TProduct);
@@ -57,7 +69,12 @@ export const cartReducer = createSlice({
   },
 });
 
-export const { toggleStateCart, addProductInCart, toggleProduct } =
-  cartReducer.actions;
+export const {
+  toggleStateCart,
+  addProductInCart,
+  deleteProductFromCart,
+  deleteAllProductsFromCart,
+  toggleProduct,
+} = cartReducer.actions;
 
 export default cartReducer.reducer;

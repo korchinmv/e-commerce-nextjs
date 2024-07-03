@@ -1,16 +1,27 @@
 "use client";
+import {
+  deleteAllProductsFromCart,
+  toggleStateCart,
+} from "@/redux/features/cart/cartSlice";
 import { useEffect, useState } from "react";
-import { toggleStateCart } from "@/redux/features/cart/cartSlice";
 import { useAppSelector } from "@/redux/hooks";
 import { cartSelector } from "@/redux/features/cart/cartSelector";
+import { useDispatch } from "react-redux";
+import { Trash2 } from "lucide-react";
 import CloseButton from "../CloseButton/CloseButton";
 import Paragraph from "@/components/typography/Paragraph/Paragraph";
-import styles from "./Cart.module.scss";
 import CartItem from "./CartItem/CartItem";
+import Error from "@/components/Error/Error";
+import styles from "./Cart.module.scss";
 
 const Cart = () => {
-  const { isOpen, cartProducts } = useAppSelector(cartSelector);
   const [mounted, setMounted] = useState<boolean>(false);
+  const { isOpen, cartProducts } = useAppSelector(cartSelector);
+  const dispatch = useDispatch();
+
+  const handleClearCart = () => {
+    dispatch(deleteAllProductsFromCart());
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -25,13 +36,30 @@ const Cart = () => {
         />
         <Paragraph
           text={`Products in bag (${cartProducts.length})`}
-          css='mb-[40px] mt-[21px] md:my-[15px] uppercase'
+          css='mb-[40px] mt-[18px] md:my-[15px] uppercase'
         />
-        <ul className={styles.cart__list}>
-          {cartProducts.map((product) => {
-            return <CartItem key={product.id} product={product} />;
-          })}
-        </ul>
+        {cartProducts.length > 0 ? (
+          <>
+            <ul className={styles.cart__list}>
+              {cartProducts.map((product) => {
+                return <CartItem key={product.id} product={product} />;
+              })}
+            </ul>
+            <div className={styles.cart__menu}>
+              <div className={styles.cart__top}>
+                <span className={styles.cart__total}>{`Total: $`}</span>
+                <button
+                  className={styles.cart__clearBtn}
+                  onClick={handleClearCart}
+                >
+                  <Trash2 color='white' />
+                </button>
+              </div>
+            </div>
+          </>
+        ) : (
+          <Error text='Cart is clear' css='text-center mt-[70px]' />
+        )}
       </div>
     )
   );

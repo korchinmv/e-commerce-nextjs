@@ -11,7 +11,7 @@ interface IButtonAddToCartProps {
   css?: string;
 }
 
-const ButtonAddToCart = ({ product, css }: IButtonAddToCartProps) => {
+const ButtonAddToCart = ({ product }: IButtonAddToCartProps) => {
   const [mounted, setMounted] = useState<boolean>(false);
   const { cartProducts } = useAppSelector(cartSelector);
   const dispatch = useAppDispatch();

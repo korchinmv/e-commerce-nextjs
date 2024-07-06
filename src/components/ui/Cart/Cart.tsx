@@ -16,7 +16,7 @@ import styles from "./Cart.module.scss";
 
 const Cart = () => {
   const [mounted, setMounted] = useState<boolean>(false);
-  const { isOpen, cartProducts } = useAppSelector(cartSelector);
+  const { isOpen, cartProducts, totalPrice } = useAppSelector(cartSelector);
   const dispatch = useDispatch();
 
   const handleClearCart = () => {
@@ -47,7 +47,9 @@ const Cart = () => {
             </ul>
             <div className={styles.cart__menu}>
               <div className={styles.cart__top}>
-                <span className={styles.cart__total}>{`Total: $`}</span>
+                <span
+                  className={styles.cart__total}
+                >{`Total: $ ${totalPrice.toFixed(2)}`}</span>
                 <button
                   className={styles.cart__clearBtn}
                   onClick={handleClearCart}

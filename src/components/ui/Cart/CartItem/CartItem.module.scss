@@ -21,8 +21,12 @@
 		@apply text-[16px] md:text-[18px] mr-[10px];
 	}
 
+	&__link {
+		@apply mr-4;
+	}
+
 	&__image {
-		@apply w-[100px] h-[100px] object-contain mr-3;
+		@apply w-[100px] h-[100px] object-contain hover:opacity-60 transition-opacity;
 	}
 
 	&__price {

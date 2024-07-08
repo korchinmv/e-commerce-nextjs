@@ -96,7 +96,7 @@ export const cartReducer = createSlice({
 
           setItemFunc(state.cartProducts.map((product) => product));
         } else {
-          state.cartProducts.push(action.payload as TProduct);
+          state.cartProducts.push(newItem);
           state.totalPrice = action.payload.price;
 
           setPriceFunc(state.totalPrice);

@@ -74,6 +74,37 @@ export const cartReducer = createSlice({
       }
     },
 
+    toggleProduct: (state, action: PayloadAction<TProduct>) => {
+      const newItem = { ...action.payload, amount: 1 };
+
+      if (state.cartProducts.length === 0) {
+        state.cartProducts.push(newItem);
+        state.totalPrice = action.payload.price;
+
+        setPriceFunc(state.totalPrice);
+        setItemFunc(state.cartProducts.map((product) => product));
+        return;
+      }
+
+      if (state.cartProducts.length > 0) {
+        if (
+          state.cartProducts.some((product) => product.id === action.payload.id)
+        ) {
+          state.cartProducts = state.cartProducts.filter(
+            (product) => product.id !== action.payload.id
+          );
+
+          setItemFunc(state.cartProducts.map((product) => product));
+        } else {
+          state.cartProducts.push(action.payload as TProduct);
+          state.totalPrice = action.payload.price;
+
+          setPriceFunc(state.totalPrice);
+          setItemFunc(state.cartProducts.map((product) => product));
+        }
+      }
+    },
+
     decreaseAmount: (state, action: PayloadAction<TProduct>) => {
       const cartItem = state.cartProducts.find((item) => {
         return item.id === action.payload.id;
@@ -116,36 +147,6 @@ export const cartReducer = createSlice({
 
       setPriceFunc(state.totalPrice);
       setItemFunc(state.cartProducts);
-    },
-
-    toggleProduct: (state, action: PayloadAction<TProduct>) => {
-      if (state.cartProducts.length === 0) {
-        state.cartProducts.push(action.payload as TProduct);
-        state.totalPrice = action.payload.price;
-
-        setPriceFunc(state.totalPrice);
-        setItemFunc(state.cartProducts.map((product) => product));
-        return;
-      }
-
-      if (state.cartProducts.length > 0) {
-        if (
-          state.cartProducts.some((product) => product.id === action.payload.id)
-        ) {
-          state.cartProducts = state.cartProducts.filter(
-            (product) => product.id !== action.payload.id
-          );
-
-          setItemFunc(state.cartProducts.map((product) => product));
-        } else {
-          state.cartProducts.push(action.payload as TProduct);
-
-          state.totalPrice = action.payload.price;
-
-          setPriceFunc(state.totalPrice);
-          setItemFunc(state.cartProducts.map((product) => product));
-        }
-      }
     },
   },
 });
